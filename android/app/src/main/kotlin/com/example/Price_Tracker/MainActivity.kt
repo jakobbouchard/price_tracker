@@ -1,4 +1,4 @@
-package com.example.Price_Tracker
+package dev.jakobbouchard.pricetracker
 
 import io.flutter.embedding.android.FlutterActivity
 

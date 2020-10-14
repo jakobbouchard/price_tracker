@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.Price_Tracker">
+    package="dev.jakobbouchard.pricetracker">
    <application
         android:label="Price_Tracker"
         android:icon="@mipmap/ic_launcher">
