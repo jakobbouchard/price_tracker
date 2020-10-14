@@ -102,9 +102,6 @@ class Loading extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Price Tracker',
-      theme: ThemeData(
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
       home: Scaffold(
         body: Center(
           child: CircularProgressIndicator(),
