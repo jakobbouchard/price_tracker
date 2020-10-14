@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1053688930390",
+    "firebase_url": "https://price-tracker-canada.firebaseio.com",
+    "project_id": "price-tracker-canada",
+    "storage_bucket": "price-tracker-canada.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1053688930390:android:7ef077a332b8c8ad81dbf7",
+        "android_client_info": {
+          "package_name": "dev.jakobbouchard.pricetracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1053688930390-u6nq2bs9a2n8j0seiep3kips26r99er5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.jakobbouchard.pricetracker",
+            "certificate_hash": "1205d093413572cc9c7cff7b7f4bbd8edf3fc983"
+          }
+        },
+        {
+          "client_id": "1053688930390-011ioc6v1ms0t5tea2ta49ucfg4vto6o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUUj5H1bV_SrO1seXKLGZ6AXcpEBCBty0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1053688930390-011ioc6v1ms0t5tea2ta49ucfg4vto6o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
