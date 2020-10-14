@@ -1,16 +1,32 @@
-# Price_Tracker
+# Price Tracker
+![GitHub](https://img.shields.io/github/license/jakobbouchard/price_tracker)
+![iOS](https://img.shields.io/badge/Platform-iOS-blue?logo=iOS)
+![Android](https://img.shields.io/badge/Platform-Android-green?logo=Android)
 
-A new Flutter project.
+![Flutter](https://img.shields.io/badge/Framework-Flutter-3cc6fd?logo=flutter)
+![Dart](https://img.shields.io/badge/Language-Dart-0c458b?logo=dart)
+![Firebase](https://img.shields.io/badge/Cloud-Firebase-f5ba23?logo=Firebase)
 
-## Getting Started
+This app will let people track prices and get notifications on price changes
+at various Canadian stores, starting with Best Buy. It is a project/experiment
+I'm doing for school as part of a research course.
 
-This project is a starting point for a Flutter application.
+## Supported stores
 
-A few resources to get you started if this is your first Flutter project:
+None at the moment, the project just got started.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Planned stores
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Best Buy Canada
+- Amazon
+- Newegg Canada
+
+## Tech stuff
+
+The app will be built using Google's Flutter Framework for its simplicity and
+ease of use. It will make multi-platform development much quicker too (although
+I do need a Mac first).
+
+For the backend, I will be using Firebase since it's pretty much an all-in-one
+solution for a backend. It will enable user authentication, storage of
+preferences as well as notifications via Cloud Messaging.
