@@ -15,42 +15,70 @@ class _LoginScreenState extends State<LoginScreen> {
   String _email;
   String _password;
 
+  void _validateForm() {
+    // Validate will return true if the form is valid, or false if
+    // the form is invalid.
+    if (_formKey.currentState.validate()) {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        HomeScreen.id,
+        ModalRoute.withName(HomeScreen.id),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         child: Form(
           key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              TextFormField(
-                decoration: const InputDecoration(
-                  hintText: 'Enter your email',
-                ),
-                validator: (value) {
-                  if (value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  return null;
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Validate will return true if the form is valid, or false if
-                    // the form is invalid.
-                    // if (_formKey.currentState.validate()) {
-                    //   // Process data.
-                    // }
-                    Navigator.pushNamed(context, HomeScreen.id);
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                TextFormField(
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.alternate_email),
+                    hintText: 'Enter your email',
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.next,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    _email = value;
+                    return null;
                   },
-                  child: Text('Login'),
                 ),
-              ),
-            ],
+                TextFormField(
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    icon: Icon(Icons.lock_open),
+                    hintText: 'Enter your password',
+                  ),
+                  textInputAction: TextInputAction.done,
+                  onFieldSubmitted: (_) => _validateForm,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    _password = value;
+                    return null;
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: ElevatedButton(
+                    onPressed: _validateForm,
+                    child: Text('Login'),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

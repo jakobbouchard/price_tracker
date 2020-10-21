@@ -1,3 +1,4 @@
+import 'package:Price_Tracker/views/welcome/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -45,6 +46,16 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: [
+          FlatButton(
+            onPressed: () => Navigator.pushNamedAndRemoveUntil(
+              context,
+              WelcomeScreen.id,
+              ModalRoute.withName(WelcomeScreen.id),
+            ),
+            child: Icon(Icons.logout),
+          )
+        ],
       ),
       body: Container(
         child: Center(
