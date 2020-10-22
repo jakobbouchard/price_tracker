@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:Price_Tracker/views/login/login.dart';
-import 'package:Price_Tracker/views/register/register.dart';
+import 'package:Price_Tracker/screens/login/login.dart';
+import 'package:Price_Tracker/screens/register/register.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const String id = 'welcome_screen';

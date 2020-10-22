@@ -1,6 +1,6 @@
-import 'package:Price_Tracker/views/welcome/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:Price_Tracker/screens/welcome/welcome.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String id = 'home_screen';
