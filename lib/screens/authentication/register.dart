@@ -54,7 +54,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 },
                 decoration: authFieldDecoration.copyWith(
                   icon: Icon(Icons.alternate_email),
-                  hintText: 'Enter your email',
+                  labelText: 'Email',
+                  hintText: 'email@example.com',
                 ),
               ),
               SizedBox(height: 10.0),
@@ -72,7 +73,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 onFieldSubmitted: (_) => _validateForm,
                 decoration: authFieldDecoration.copyWith(
                   icon: Icon(Icons.lock_open),
-                  hintText: 'Enter your password',
+                  labelText: 'Password',
+                  hintText: '●●●●●●●●●●●●',
                 ),
               ),
               Padding(
