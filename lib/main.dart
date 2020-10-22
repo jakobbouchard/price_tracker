@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:Price_Tracker/views/welcome/welcome.dart';
-import 'package:Price_Tracker/views/login/login.dart';
-import 'package:Price_Tracker/views/register/register.dart';
-import 'package:Price_Tracker/views/home/home.dart';
+import 'package:Price_Tracker/services/auth.dart';
+import 'package:Price_Tracker/screens/welcome/welcome.dart';
+import 'package:Price_Tracker/screens/login/login.dart';
+import 'package:Price_Tracker/screens/register/register.dart';
+import 'package:Price_Tracker/screens/home/home.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,23 +29,25 @@ class PriceTracker extends StatelessWidget {
 
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
-          final _auth = FirebaseAuth.instance;
-          return MaterialApp(
-            title: 'Price Tracker',
-            theme: ThemeData(
-              brightness: Brightness.dark,
-              primarySwatch: Colors.blue,
-              visualDensity: VisualDensity.adaptivePlatformDensity,
+          return StreamProvider<User>.value(
+            catchError: (_, __) => null,
+            value: AuthService().user,
+            child: MaterialApp(
+              title: 'Price Tracker',
+              theme: ThemeData(
+                brightness: Brightness.dark,
+                primarySwatch: Colors.blue,
+                visualDensity: VisualDensity.adaptivePlatformDensity,
+              ),
+              initialRoute: WelcomeScreen.id,
+              routes: {
+                WelcomeScreen.id: (context) => WelcomeScreen(),
+                LoginScreen.id: (context) => LoginScreen(),
+                RegistrationScreen.id: (context) => RegistrationScreen(),
+                HomeScreen.id: (context) => HomeScreen(title: 'Home'),
+              },
+              debugShowCheckedModeBanner: false,
             ),
-            initialRoute:
-                _auth.currentUser == null ? WelcomeScreen.id : HomeScreen.id,
-            routes: {
-              WelcomeScreen.id: (context) => WelcomeScreen(),
-              LoginScreen.id: (context) => LoginScreen(),
-              RegistrationScreen.id: (context) => RegistrationScreen(),
-              HomeScreen.id: (context) => HomeScreen(title: 'Home'),
-            },
-            debugShowCheckedModeBanner: false,
           );
         }
 
