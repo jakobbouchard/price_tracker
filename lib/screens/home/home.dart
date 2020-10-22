@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:Price_Tracker/services/auth.dart';
 import 'package:Price_Tracker/screens/welcome/welcome.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -13,7 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final _auth = FirebaseAuth.instance;
+  final AuthService _auth = AuthService();
   int _selectedIndex = 0;
 
   static const TextStyle optionStyle = TextStyle(
@@ -47,13 +47,14 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text(widget.title),
         actions: [
-          FlatButton(
+          FlatButton.icon(
             onPressed: () => Navigator.pushNamedAndRemoveUntil(
               context,
               WelcomeScreen.id,
               ModalRoute.withName(WelcomeScreen.id),
             ),
-            child: Icon(Icons.logout),
+            icon: Icon(Icons.logout),
+            label: Text('Sign out'),
           )
         ],
       ),

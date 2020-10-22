@@ -3,31 +3,100 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  // Auth change stream
+  Stream<User> get user {
+    return _auth.authStateChanges();
+  }
+
   /// Signing in ///
 
   // sign in email
+  Future<User> signInWithEmail(String email, String password) async {
+    try {
+      UserCredential credential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      User user = credential.user;
+      return user;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
 
   // sign in google
+  Future<User> signInWithGoogle() async {
+    try {
+      UserCredential credential = await _auth.signInWithCredential(null);
+      User user = credential.user;
+      return user;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
 
   // sign in apple
+  Future<User> signInWithApple() async {
+    try {
+      UserCredential credential = await _auth.signInWithCredential(null);
+      User user = credential.user;
+      return user;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
 
   // sign in twitter
+  Future<User> signInWithTwitter() async {
+    try {
+      UserCredential credential = await _auth.signInWithCredential(null);
+      User user = credential.user;
+      return user;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
 
   // sign in github
+  Future<User> signInWithGitHub() async {
+    try {
+      UserCredential credential = await _auth.signInWithCredential(null);
+      User user = credential.user;
+      return user;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
 
-  /// Signing up ///
-
-  // sign up email
-
-  // sign up google
-
-  // sign up apple
-
-  // sign up twitter
-
-  // sign up github
+  /// sign up email
+  Future<User> registerWithEmail(String email, String password) async {
+    try {
+      UserCredential credential = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      User user = credential.user;
+      return user;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
 
   /// Signing out ///
 
   // sign out
+  Future<void> signOut() async {
+    try {
+      return await _auth.signOut();
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
 }
