@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:Price_Tracker/constants.dart';
 import 'package:Price_Tracker/services/auth.dart';
 import 'package:Price_Tracker/screens/home/home.dart';
+import 'package:Price_Tracker/screens/authentication/register.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login_screen';
@@ -32,9 +34,18 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Sign in'),
+        actions: [
+          FlatButton.icon(
+            icon: Icon(Icons.person),
+            label: Text('Register'),
+            onPressed: () {
+              Navigator.pushNamed(context, RegistrationScreen.id);
+            },
+          ),
+        ],
       ),
       body: Container(
-        padding: EdgeInsets.all(20.0),
+        padding: EdgeInsets.symmetric(horizontal: 20.0),
         child: Form(
           key: _formKey,
           child: Column(
@@ -51,11 +62,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     _email = value;
                   });
                 },
-                decoration: const InputDecoration(
+                decoration: authFieldDecoration.copyWith(
                   icon: Icon(Icons.alternate_email),
                   hintText: 'Enter your email',
                 ),
               ),
+              SizedBox(height: 10.0),
               TextFormField(
                 obscureText: true,
                 textInputAction: TextInputAction.done,
@@ -68,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   });
                 },
                 onFieldSubmitted: (_) => _validateForm,
-                decoration: const InputDecoration(
+                decoration: authFieldDecoration.copyWith(
                   icon: Icon(Icons.lock_open),
                   hintText: 'Enter your password',
                 ),

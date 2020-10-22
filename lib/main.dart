@@ -3,9 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:Price_Tracker/services/auth.dart';
-import 'package:Price_Tracker/screens/welcome/welcome.dart';
-import 'package:Price_Tracker/screens/login/login.dart';
-import 'package:Price_Tracker/screens/register/register.dart';
+import 'package:Price_Tracker/screens/authentication/login.dart';
+import 'package:Price_Tracker/screens/authentication/register.dart';
 import 'package:Price_Tracker/screens/home/home.dart';
 
 void main() {
@@ -39,9 +38,8 @@ class PriceTracker extends StatelessWidget {
                 primarySwatch: Colors.blue,
                 visualDensity: VisualDensity.adaptivePlatformDensity,
               ),
-              initialRoute: WelcomeScreen.id,
+              initialRoute: LoginScreen.id,
               routes: {
-                WelcomeScreen.id: (context) => WelcomeScreen(),
                 LoginScreen.id: (context) => LoginScreen(),
                 RegistrationScreen.id: (context) => RegistrationScreen(),
                 HomeScreen.id: (context) => HomeScreen(title: 'Home'),

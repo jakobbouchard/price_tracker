@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:Price_Tracker/services/auth.dart';
-import 'package:Price_Tracker/screens/welcome/welcome.dart';
+import 'package:Price_Tracker/screens/authentication/login.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String id = 'home_screen';
@@ -50,8 +50,8 @@ class _HomeScreenState extends State<HomeScreen> {
           FlatButton.icon(
             onPressed: () => Navigator.pushNamedAndRemoveUntil(
               context,
-              WelcomeScreen.id,
-              ModalRoute.withName(WelcomeScreen.id),
+              LoginScreen.id,
+              ModalRoute.withName(LoginScreen.id),
             ),
             icon: Icon(Icons.logout),
             label: Text('Sign out'),

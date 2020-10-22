@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:Price_Tracker/constants.dart';
 import 'package:Price_Tracker/services/auth.dart';
 import 'package:Price_Tracker/screens/home/home.dart';
 
@@ -51,11 +52,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     _email = value;
                   });
                 },
-                decoration: const InputDecoration(
+                decoration: authFieldDecoration.copyWith(
                   icon: Icon(Icons.alternate_email),
                   hintText: 'Enter your email',
                 ),
               ),
+              SizedBox(height: 10.0),
               TextFormField(
                 obscureText: true,
                 textInputAction: TextInputAction.done,
@@ -68,7 +70,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   });
                 },
                 onFieldSubmitted: (_) => _validateForm,
-                decoration: const InputDecoration(
+                decoration: authFieldDecoration.copyWith(
                   icon: Icon(Icons.lock_open),
                   hintText: 'Enter your password',
                 ),
