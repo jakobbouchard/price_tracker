@@ -20,11 +20,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   void _validateForm() async {
     if (_formKey.currentState.validate()) {
       dynamic user = await _auth.registerWithEmail(_email, _password);
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        HomeScreen.id,
-        ModalRoute.withName(HomeScreen.id),
-      );
+      debugPrint('User registered: ${user.email}, uid: ${user.uid}');
+
+      if (user != null) {
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          HomeScreen.id,
+          ModalRoute.withName(HomeScreen.id),
+        );
+      }
     }
   }
 
@@ -35,7 +39,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         title: Text('Sign up'),
       ),
       body: Container(
-        padding: EdgeInsets.all(20.0),
+        padding: EdgeInsets.symmetric(horizontal: 20.0),
         child: Form(
           key: _formKey,
           child: CustomScrollView(

@@ -19,13 +19,17 @@ class _LoginScreenState extends State<LoginScreen> {
   String _password;
 
   void _validateForm() async {
-    dynamic user = await _auth.signInWithEmail(_email, _password);
     if (_formKey.currentState.validate()) {
-      Navigator.pushNamedAndRemoveUntil(
-        context,
-        HomeScreen.id,
-        ModalRoute.withName(HomeScreen.id),
-      );
+      dynamic user = await _auth.signInWithEmail(_email, _password);
+      debugPrint('User signed in: ${user.email}, uid: ${user.uid}');
+
+      if (user != null) {
+        Navigator.pushNamedAndRemoveUntil(
+          context,
+          HomeScreen.id,
+          ModalRoute.withName(HomeScreen.id),
+        );
+      }
     }
   }
 
