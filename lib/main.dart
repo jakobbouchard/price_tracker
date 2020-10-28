@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:price_tracker/services/auth.dart';
 import 'package:price_tracker/screens/authentication/login.dart';
 import 'package:price_tracker/screens/authentication/register.dart';
@@ -28,6 +30,7 @@ class PriceTracker extends StatelessWidget {
 
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
+          FirebaseAnalytics analytics = FirebaseAnalytics();
           return StreamProvider<User>.value(
             catchError: (_, __) => null,
             value: AuthService().user,
@@ -38,6 +41,9 @@ class PriceTracker extends StatelessWidget {
                 primarySwatch: Colors.blue,
                 visualDensity: VisualDensity.adaptivePlatformDensity,
               ),
+              navigatorObservers: [
+                FirebaseAnalyticsObserver(analytics: analytics),
+              ],
               initialRoute: LoginScreen.id,
               routes: {
                 LoginScreen.id: (context) => LoginScreen(),
