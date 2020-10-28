@@ -20,7 +20,7 @@ class AuthService {
       User user = credential.user;
       return user;
     } catch (e) {
-      print(e.toString());
+      print('[ERROR] ${e.toString()}');
       return null;
     }
   }
@@ -32,7 +32,7 @@ class AuthService {
       User user = credential.user;
       return user;
     } catch (e) {
-      print(e.toString());
+      print('[ERROR] ${e.toString()}');
       return null;
     }
   }
@@ -44,7 +44,7 @@ class AuthService {
       User user = credential.user;
       return user;
     } catch (e) {
-      print(e.toString());
+      print('[ERROR] ${e.toString()}');
       return null;
     }
   }
@@ -56,7 +56,7 @@ class AuthService {
       User user = credential.user;
       return user;
     } catch (e) {
-      print(e.toString());
+      print('[ERROR] ${e.toString()}');
       return null;
     }
   }
@@ -68,7 +68,7 @@ class AuthService {
       User user = credential.user;
       return user;
     } catch (e) {
-      print(e.toString());
+      print('[ERROR] ${e.toString()}');
       return null;
     }
   }
@@ -84,7 +84,7 @@ class AuthService {
       User user = credential.user;
       return user;
     } catch (e) {
-      print(e.toString());
+      print('[ERROR] ${e.toString()}');
       return null;
     }
   }
@@ -94,7 +94,7 @@ class AuthService {
     try {
       return await _auth.signOut();
     } catch (e) {
-      print(e.toString());
+      print('[ERROR] ${e.toString()}');
       return null;
     }
   }
