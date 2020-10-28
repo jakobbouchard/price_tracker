@@ -47,15 +47,18 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text(widget.title),
         actions: [
-          FlatButton.icon(
-            onPressed: () => Navigator.pushNamedAndRemoveUntil(
-              context,
-              LoginScreen.id,
-              ModalRoute.withName(LoginScreen.id),
-            ),
+          IconButton(
+            onPressed: () async {
+              await _auth.signOut();
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                LoginScreen.id,
+                ModalRoute.withName(LoginScreen.id),
+              );
+            },
             icon: Icon(Icons.logout),
-            label: Text('Sign out'),
-          )
+            tooltip: 'Sign out',
+          ),
         ],
       ),
       body: Container(
