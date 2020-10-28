@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:Price_Tracker/constants.dart';
-import 'package:Price_Tracker/services/auth.dart';
-import 'package:Price_Tracker/screens/home/home.dart';
-import 'package:Price_Tracker/screens/authentication/register.dart';
+import 'package:price_tracker/constants.dart';
+import 'package:price_tracker/services/auth.dart';
+import 'package:price_tracker/screens/home/home.dart';
+import 'package:price_tracker/screens/authentication/register.dart';
 
 class LoginScreen extends StatefulWidget {
   static const String id = 'login_screen';

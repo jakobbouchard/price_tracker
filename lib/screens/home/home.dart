@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:Price_Tracker/services/auth.dart';
-import 'package:Price_Tracker/screens/authentication/login.dart';
+import 'package:price_tracker/services/auth.dart';
+import 'package:price_tracker/screens/authentication/login.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String id = 'home_screen';

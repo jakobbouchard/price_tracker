@@ -1,4 +1,4 @@
-name: Price_Tracker
+name: price_tracker
 description: A price tracking app for Canadian stores.
 publish_to: 'none'
 version: 1.0.0+1

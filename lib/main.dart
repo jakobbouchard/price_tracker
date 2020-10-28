@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:Price_Tracker/services/auth.dart';
-import 'package:Price_Tracker/screens/authentication/login.dart';
-import 'package:Price_Tracker/screens/authentication/register.dart';
-import 'package:Price_Tracker/screens/home/home.dart';
+import 'package:price_tracker/services/auth.dart';
+import 'package:price_tracker/screens/authentication/login.dart';
+import 'package:price_tracker/screens/authentication/register.dart';
+import 'package:price_tracker/screens/home/home.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
