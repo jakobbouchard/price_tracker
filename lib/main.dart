@@ -48,7 +48,7 @@ class PriceTracker extends StatelessWidget {
               routes: {
                 LoginScreen.id: (context) => LoginScreen(),
                 RegistrationScreen.id: (context) => RegistrationScreen(),
-                HomeScreen.id: (context) => HomeScreen(title: 'Home'),
+                HomeScreen.id: (context) => HomeScreen(title: 'Price Tracker'),
               },
               debugShowCheckedModeBanner: false,
             ),
