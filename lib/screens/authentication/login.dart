@@ -18,10 +18,21 @@ class _LoginScreenState extends State<LoginScreen> {
   String _email;
   String _password;
 
-  void _validateForm() async {
+  Future _loginWithThirdParty(CredPlatform platform) async {
+    dynamic user = await _auth.signInWithCredential(platform);
+
+    if (user != null) {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        HomeScreen.id,
+        ModalRoute.withName(HomeScreen.id),
+      );
+    }
+  }
+
+  void _loginWithForm() async {
     if (_formKey.currentState.validate()) {
       dynamic user = await _auth.signInWithEmail(_email, _password);
-      debugPrint('User signed in: ${user.email}, uid: ${user.uid}');
 
       if (user != null) {
         Navigator.pushNamedAndRemoveUntil(
@@ -97,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           _password = value;
                         });
                       },
-                      onFieldSubmitted: (_) => _validateForm,
+                      onFieldSubmitted: (_) => _loginWithForm,
                       decoration: authFieldDecoration.copyWith(
                         icon: Icon(Icons.lock_open),
                         labelText: 'Password',
@@ -107,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Padding(
                       padding: const EdgeInsets.only(top: 16.0),
                       child: ElevatedButton(
-                        onPressed: _validateForm,
+                        onPressed: _loginWithForm,
                         child: Text('Sign in'),
                       ),
                     ),
@@ -133,7 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     SignInButton(
                       Buttons.Google,
                       onPressed: () async {
-                        await _auth.signInWithGoogle();
+                        await _loginWithThirdParty(CredPlatform.google);
                       },
                     ),
                     Row(
@@ -143,21 +154,21 @@ class _LoginScreenState extends State<LoginScreen> {
                           Buttons.Twitter,
                           mini: true,
                           onPressed: () async {
-                            await _auth.signInWithTwitter();
+                            await _loginWithThirdParty(CredPlatform.twitter);
                           },
                         ),
                         SignInButton(
                           Buttons.Apple,
                           mini: true,
                           onPressed: () async {
-                            await _auth.signInWithApple();
+                            await _loginWithThirdParty(CredPlatform.apple);
                           },
                         ),
                         SignInButton(
                           Buttons.GitHub,
                           mini: true,
                           onPressed: () async {
-                            await _auth.signInWithGitHub();
+                            await _loginWithThirdParty(CredPlatform.github);
                           },
                         ),
                       ],
