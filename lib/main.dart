@@ -12,6 +12,7 @@ import 'package:price_tracker/screens/authentication/login.dart';
 import 'package:price_tracker/screens/authentication/register.dart';
 import 'package:price_tracker/screens/home/home.dart';
 
+FirebaseAnalytics analytics;
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(PriceTracker());
@@ -33,6 +34,7 @@ class PriceTracker extends StatelessWidget {
 
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
+          analytics = FirebaseAnalytics();
           if (kDebugMode) {
             // Force disable Crashlytics collection while doing every day development.
             // Temporarily toggle this to true if you want to test crash reporting in your app.
@@ -42,6 +44,7 @@ class PriceTracker extends StatelessWidget {
           }
           FlutterError.onError =
               FirebaseCrashlytics.instance.recordFlutterError;
+
           return StreamProvider<User>.value(
             catchError: (_, __) => null,
             value: AuthService().user,
