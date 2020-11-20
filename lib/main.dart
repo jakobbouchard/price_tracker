@@ -9,7 +9,6 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:price_tracker/services/auth.dart';
 import 'package:price_tracker/screens/authentication/login.dart';
-import 'package:price_tracker/screens/authentication/register.dart';
 import 'package:price_tracker/screens/home/home.dart';
 
 FirebaseAnalytics analytics;
@@ -61,7 +60,6 @@ class PriceTracker extends StatelessWidget {
               initialRoute: LoginScreen.id,
               routes: {
                 LoginScreen.id: (context) => LoginScreen(),
-                RegistrationScreen.id: (context) => RegistrationScreen(),
                 HomeScreen.id: (context) => HomeScreen(title: 'Price Tracker'),
               },
               debugShowCheckedModeBanner: false,

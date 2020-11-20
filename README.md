@@ -1,6 +1,5 @@
 # Price Tracker
 ![GitHub](https://img.shields.io/github/license/jakobbouchard/price_tracker)
-![iOS](https://img.shields.io/badge/Platform-iOS-blue?logo=iOS)
 ![Android](https://img.shields.io/badge/Platform-Android-green?logo=Android)
 
 ![Flutter](https://img.shields.io/badge/Framework-Flutter-3cc6fd?logo=flutter)
@@ -24,8 +23,10 @@ None at the moment, the project just got started.
 ## Tech stuff
 
 The app will be built using Google's Flutter Framework for its simplicity and
-ease of use. It will make multi-platform development much quicker too (although
-I do need a Mac first).
+ease of use. It will make multi-platform development much quicker too ~~(although
+I do need a Mac first).~~ I will not be making an iOS app at the moment due to
+time and hardware restrictions. Part of the reason why I removed the Apple Auth
+option.
 
 For the backend, I will be using Firebase since it's pretty much an all-in-one
 solution for a backend. It will enable user authentication, storage of
