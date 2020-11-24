@@ -1,4 +1,7 @@
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_twitter_login/flutter_twitter_login.dart';
 
@@ -6,6 +9,30 @@ enum CredPlatform { google, twitter }
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final FirebaseMessaging _fcm = FirebaseMessaging.instance;
+
+  /// Get the FCM token, save it to the database for current user
+  _saveDeviceToken(User user) async {
+    // Get the current user ID
+    String uid = user.uid;
+
+    // Get the token for this device
+    String fcmToken = await _fcm.getToken();
+
+    // Save it to Firestore
+    if (fcmToken != null) {
+      var tokens =
+          _db.collection('users').doc(uid).collection('tokens').doc(fcmToken);
+
+      await tokens.set({
+        'token': fcmToken,
+        'createdAt': FieldValue.serverTimestamp(),
+        'platform': Platform.operatingSystem
+      });
+      print('Saved token $fcmToken');
+    }
+  }
 
   Future<User> _handleExistsWithDiffCred(e) async {
     // The account already exists with a different credential
@@ -104,6 +131,7 @@ class AuthService {
           await _auth.signInWithCredential(platformCredential);
       print(
           'User signed in: ${credential.user.email}, uid: ${credential.user.uid}');
+      _saveDeviceToken(credential.user);
       return credential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'account-exists-with-different-credential') {
