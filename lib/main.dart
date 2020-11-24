@@ -4,14 +4,16 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_performance/firebase_performance.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:price_tracker/services/auth.dart';
 import 'package:price_tracker/screens/authentication/login.dart';
 import 'package:price_tracker/screens/home/home.dart';
 
 FirebaseAnalytics analytics;
+FirebaseMessaging fcm;
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(PriceTracker());
@@ -34,6 +36,8 @@ class PriceTracker extends StatelessWidget {
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           analytics = FirebaseAnalytics();
+          fcm = FirebaseMessaging.instance;
+
           if (kDebugMode) {
             // Force disable Crashlytics collection while doing every day development.
             // Temporarily toggle this to true if you want to test crash reporting in your app.
