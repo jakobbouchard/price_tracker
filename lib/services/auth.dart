@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_twitter_login/flutter_twitter_login.dart';
 
-enum CredPlatform { google, twitter, github }
+enum CredPlatform { google, twitter }
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -54,6 +55,26 @@ class AuthService {
     return googleAuthCredential;
   }
 
+  Future<TwitterAuthCredential> _triggerTwitterAuth() async {
+    // Create a TwitterLogin instance
+    final TwitterLogin twitterLogin = new TwitterLogin(
+      consumerKey: 'O5uojX8kCERafME1bvVPRycqb',
+      consumerSecret: 'jAU2Aat7ooRTSjRxsARGy2lx55ZUhKxNbhHLk15POZbgWN1JBa',
+    );
+
+    // Trigger the sign-in flow
+    final TwitterLoginResult loginResult = await twitterLogin.authorize();
+
+    // Get the Logged In session
+    final TwitterSession twitterSession = loginResult.session;
+
+    // Create a credential from the access token
+    final AuthCredential twitterAuthCredential = TwitterAuthProvider.credential(
+        accessToken: twitterSession.token, secret: twitterSession.secret);
+
+    return twitterAuthCredential;
+  }
+
   /// Notifies about changes to the user's sign-in state (such as sign-in or
   /// sign-out).
   Stream<User> get user {
@@ -73,10 +94,7 @@ class AuthService {
         platformCredential = await _triggerGoogleAuth();
         break;
       case CredPlatform.twitter:
-        platformCredential = await _triggerGoogleAuth();
-        break;
-      case CredPlatform.github:
-        platformCredential = await _triggerGoogleAuth();
+        platformCredential = await _triggerTwitterAuth();
         break;
     }
 

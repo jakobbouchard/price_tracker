@@ -55,12 +55,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   await _loginWithThirdParty(CredPlatform.twitter);
                 },
               ),
-              SignInButton(
-                Buttons.GitHub,
-                onPressed: () async {
-                  await _loginWithThirdParty(CredPlatform.github);
-                },
-              ),
             ],
           ),
         ),
