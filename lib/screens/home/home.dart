@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:price_tracker/services/auth.dart';
+import 'package:price_tracker/services/product_fetch.dart';
 import 'package:price_tracker/screens/authentication/login.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -20,17 +21,10 @@ class _HomeScreenState extends State<HomeScreen> {
     fontSize: 30,
     fontWeight: FontWeight.bold,
   );
-  static const List<Widget> _widgetOptions = <Widget>[
+  static List<Widget> _widgetOptions = <Widget>[
+    CustomButtonThing(),
     Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
+      'Index 1: Settings',
       style: optionStyle,
     ),
   ];
@@ -73,18 +67,26 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'School',
+            icon: Icon(Icons.settings),
+            label: 'Settings',
           ),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
         onTap: _onItemTapped,
       ),
+    );
+  }
+}
+
+class CustomButtonThing extends StatelessWidget {
+  final ProductDataModel productData = ProductDataModel();
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        productData.getProductData('14672700');
+      },
+      child: Text('Fetch Data'),
     );
   }
 }
