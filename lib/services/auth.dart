@@ -13,7 +13,7 @@ class AuthService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final FirebaseMessaging _fcm = FirebaseMessaging.instance;
 
-  /// Gets the FCM token, save it to the database for current user
+  /// Gets the FCM token, then saves it to the database for current user
   /// Also creates a high importance notification channel
   _configureFCM(User user) async {
     // Get the current user ID
@@ -30,7 +30,8 @@ class AuthService {
       await tokens.set({
         'token': fcmToken,
         'createdAt': FieldValue.serverTimestamp(),
-        'platform': Platform.operatingSystem
+        'platform': Platform.operatingSystem,
+        'loggedIn': true,
       });
       print('Saved token $fcmToken');
     }
@@ -166,6 +167,20 @@ class AuthService {
   /// Signs out the current user.
   Future<void> signOut() async {
     try {
+      String uid = _auth.currentUser.uid;
+      String fcmToken = await _fcm.getToken();
+
+      // Set the device token as logged out
+      if (fcmToken != null) {
+        var tokens =
+            _db.collection('users').doc(uid).collection('tokens').doc(fcmToken);
+
+        await tokens.update({
+          'loggedIn': false,
+        });
+
+        print('Saved token $fcmToken');
+      }
       await _auth.signOut();
       print('Signed out');
       return;
