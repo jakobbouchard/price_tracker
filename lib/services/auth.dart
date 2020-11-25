@@ -79,7 +79,20 @@ class AuthService {
       user = userCredential.user;
     }
 
-    // Handle other OAuth providers...
+    if (userSignInMethods.first == 'twitter.com') {
+      // Create a new Twitter credential
+      TwitterAuthCredential twitterAuthCredential = await _triggerTwitterAuth();
+
+      // Sign the user in with the credential
+      UserCredential userCredential =
+          await _auth.signInWithCredential(twitterAuthCredential);
+
+      // Link the pending credential with the existing account
+      await userCredential.user.linkWithCredential(pendingCredential);
+
+      // Success! Go back to your application flow
+      user = userCredential.user;
+    }
 
     return user;
   }
@@ -116,8 +129,11 @@ class AuthService {
     final TwitterSession twitterSession = loginResult.session;
 
     // Create a credential from the access token
-    final AuthCredential twitterAuthCredential = TwitterAuthProvider.credential(
-        accessToken: twitterSession.token, secret: twitterSession.secret);
+    final TwitterAuthCredential twitterAuthCredential =
+        TwitterAuthProvider.credential(
+      accessToken: twitterSession.token,
+      secret: twitterSession.secret,
+    );
 
     return twitterAuthCredential;
   }
@@ -145,7 +161,7 @@ class AuthService {
         break;
     }
 
-    // Once signed in, return the UserCredential
+    // Once signed in, return the User
     try {
       final UserCredential credential =
           await _auth.signInWithCredential(platformCredential);
