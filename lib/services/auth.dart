@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_twitter_login/flutter_twitter_login.dart';
 
@@ -12,8 +13,9 @@ class AuthService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   final FirebaseMessaging _fcm = FirebaseMessaging.instance;
 
-  /// Get the FCM token, save it to the database for current user
-  _saveDeviceToken(User user) async {
+  /// Gets the FCM token, save it to the database for current user
+  /// Also creates a high importance notification channel
+  _configureFCM(User user) async {
     // Get the current user ID
     String uid = user.uid;
 
@@ -32,6 +34,23 @@ class AuthService {
       });
       print('Saved token $fcmToken');
     }
+
+    // Create the high importance notification channel
+    const AndroidNotificationChannel channel = AndroidNotificationChannel(
+      'product_on_sale', // id
+      'Tracked product on sale', // title
+      'This channel is used when one of your tracked product goes on sale.', // description
+      importance: Importance.max,
+    );
+
+    // Create the channel on the device
+    final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel);
   }
 
   Future<User> _handleExistsWithDiffCred(e) async {
@@ -131,7 +150,7 @@ class AuthService {
           await _auth.signInWithCredential(platformCredential);
       print(
           'User signed in: ${credential.user.email}, uid: ${credential.user.uid}');
-      _saveDeviceToken(credential.user);
+      _configureFCM(credential.user);
       return credential.user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'account-exists-with-different-credential') {

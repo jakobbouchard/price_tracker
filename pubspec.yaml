@@ -26,6 +26,7 @@ dependencies:
   cloud_firestore: ^0.14.3
   cloud_functions: ^0.7.0+1
   firebase_messaging: ^8.0.0-dev.8
+  flutter_local_notifications: ^3.0.1+6
 
 dev_dependencies:
   flutter_test:
