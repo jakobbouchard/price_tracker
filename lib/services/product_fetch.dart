@@ -2,8 +2,8 @@ import 'package:price_tracker/utils/networking.dart';
 
 const String bestBuyCanadaURL = 'https://www.bestbuy.ca/api/v2/json/product';
 
-class ProductDataModel {
-  Future<dynamic> getProductData(String productSKU) async {
+class ProductModel {
+  Future<dynamic> getProductData(int productSKU) async {
     NetworkHelper networkHelper =
         NetworkHelper('$bestBuyCanadaURL/$productSKU');
     var productData = await networkHelper.getData();

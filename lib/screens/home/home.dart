@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:price_tracker/services/auth.dart';
-import 'package:price_tracker/services/product_fetch.dart';
+import 'package:price_tracker/screens/home/components/product.dart';
 import 'package:price_tracker/screens/authentication/login.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     fontWeight: FontWeight.bold,
   );
   static List<Widget> _widgetOptions = <Widget>[
-    CustomButtonThing(),
+    Product(14672700),
     Text(
       'Index 1: Settings',
       style: optionStyle,
@@ -75,18 +75,6 @@ class _HomeScreenState extends State<HomeScreen> {
         selectedItemColor: Colors.amber[800],
         onTap: _onItemTapped,
       ),
-    );
-  }
-}
-
-class CustomButtonThing extends StatelessWidget {
-  final ProductDataModel productData = ProductDataModel();
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () {
-        productData.getProductData('14672700');
-      },
-      child: Text('Fetch Data'),
     );
   }
 }
