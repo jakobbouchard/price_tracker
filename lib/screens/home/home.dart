@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:price_tracker/services/auth.dart';
-import 'package:price_tracker/screens/home/components/product.dart';
+import 'package:price_tracker/screens/home/views/product_list.dart';
 import 'package:price_tracker/screens/authentication/login.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     fontWeight: FontWeight.bold,
   );
   static List<Widget> _widgetOptions = <Widget>[
-    Product(14672700),
+    ProductList(),
     Text(
       'Index 1: Settings',
       style: optionStyle,
@@ -72,7 +72,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
         onTap: _onItemTapped,
       ),
     );
