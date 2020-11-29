@@ -7,17 +7,14 @@ class ProductList extends StatefulWidget {
 }
 
 class _ProductListState extends State<ProductList> {
-  final List<int> skuList = <int>[14672700];
+  final List<int> skuList = <int>[14672700, 14584744];
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(15.0),
         itemCount: skuList.length,
         itemBuilder: (BuildContext context, int index) {
-          return Container(
-            height: 50,
-            child: Product(skuList[index]),
-          );
+          return Product(skuList[index]);
         });
   }
 }
