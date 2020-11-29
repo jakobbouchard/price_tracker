@@ -17,16 +17,16 @@ class _ProductState extends State<Product> {
   double salePrice;
   String message;
 
-  void getData(int productSKU) async {
+  void getData(int sku) async {
     fetchingData = true;
     try {
-      var productData = await product.getProductData(productSKU);
+      var data = await product.getProductData(sku);
       fetchingData = false;
 
       setState(() {
-        productName = productData['name'];
-        regularPrice = productData['regularPrice'];
-        salePrice = productData['salePrice'];
+        productName = data['name'];
+        regularPrice = data['regularPrice'];
+        salePrice = data['salePrice'];
         message = regularPrice != salePrice
             ? 'This product is on sale!'
             : 'This product is not on sale.';
@@ -39,7 +39,7 @@ class _ProductState extends State<Product> {
   @override
   void initState() {
     super.initState();
-    getData(widget.productSKU);
+    getData(widget.sku);
   }
 
   @override
