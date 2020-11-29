@@ -7,11 +7,7 @@ class ProductModel {
     NetworkHelper networkHelper =
         NetworkHelper('$bestBuyCanadaURL/$productSKU');
     try {
-      var productData = await networkHelper.getData();
-      // TODO: Remove these temporary prints
-      print('Regular price: ${productData['regularPrice']}');
-      print('Sale price: ${productData['salePrice']}');
-      return productData;
+      return await networkHelper.getData();
     } catch (e) {
       print(e);
     }
