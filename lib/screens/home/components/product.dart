@@ -11,34 +11,42 @@ class Product extends StatefulWidget {
 
 class _ProductState extends State<Product> {
   ProductModel product = ProductModel();
-  dynamic productData;
+  bool fetchingData = false;
+  String productName;
   double regularPrice;
   double salePrice;
   String message;
 
-  void updateUI(int productSKU) async {
-    productData = await product.getProductData(productSKU);
-    setState(() {
-      regularPrice = productData['regularPrice'];
-      salePrice = productData['salePrice'];
-      message = regularPrice != salePrice
-          ? 'This product is on sale!'
-          : 'This product is not on sale.';
-    });
+  void getData(int productSKU) async {
+    fetchingData = true;
+    try {
+      var productData = await product.getProductData(productSKU);
+      fetchingData = false;
+
+      setState(() {
+        productName = productData['name'];
+        regularPrice = productData['regularPrice'];
+        salePrice = productData['salePrice'];
+        message = regularPrice != salePrice
+            ? 'This product is on sale!'
+            : 'This product is not on sale.';
+      });
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
   void initState() {
     super.initState();
-    updateUI(widget.productSKU);
+    getData(widget.productSKU);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Padding(
       padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
       child: Card(
-        color: Colors.lightBlueAccent,
         elevation: 5.0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
@@ -48,12 +56,14 @@ class _ProductState extends State<Product> {
           child: Column(
             children: <Widget>[
               Text(
-                'Price $regularPrice, SalePrice $salePrice, productName ${productData["name"]}',
+                fetchingData
+                    ? '???'
+                    : 'Price $regularPrice, SalePrice $salePrice, productName $productName',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 20.0, color: Colors.white),
               ),
               Text(
-                message,
+                fetchingData ? '???' : '$message',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 20.0, color: Colors.white),
               ),
