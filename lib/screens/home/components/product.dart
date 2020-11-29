@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:price_tracker/services/product_fetch.dart';
 
 class Product extends StatefulWidget {
-  Product(int this.productSKU);
-  final productSKU;
+  Product(int this.sku);
+  final sku;
 
   @override
   _ProductState createState() => _ProductState();
@@ -44,31 +44,24 @@ class _ProductState extends State<Product> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
-      child: Card(
-        elevation: 5.0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
-          child: Column(
-            children: <Widget>[
-              Text(
-                fetchingData
-                    ? '???'
-                    : 'Price $regularPrice, SalePrice $salePrice, productName $productName',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20.0, color: Colors.white),
-              ),
-              Text(
-                fetchingData ? '???' : '$message',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20.0, color: Colors.white),
-              ),
-            ],
-          ),
+    return Card(
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 25.0, horizontal: 20.0),
+        child: Column(
+          children: <Widget>[
+            Text(
+              fetchingData
+                  ? '???'
+                  : 'Price $regularPrice, SalePrice $salePrice, productName $productName',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 20.0, color: Colors.white),
+            ),
+            Text(
+              fetchingData ? '???' : '$message',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 20.0, color: Colors.white),
+            ),
+          ],
         ),
       ),
     );
