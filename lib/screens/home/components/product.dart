@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:price_tracker/services/product_fetch.dart';
 
 class Product extends StatefulWidget {
-  Product(int this.sku);
+  Product(String this.sku);
   final sku;
 
   @override
@@ -17,7 +17,7 @@ class _ProductState extends State<Product> {
   double salePrice;
   String message;
 
-  void getData(int sku) async {
+  void getData(String sku) async {
     fetchingData = true;
     try {
       var data = await product.getProductData(sku);
