@@ -90,30 +90,9 @@ class _ProductDescription extends StatelessWidget {
   }
 }
 
-class ProductListItem extends StatefulWidget {
-  ProductListItem(this.sku);
-  final String sku;
-
-  @override
-  _ProductListItemState createState() => _ProductListItemState();
-}
-
-class _ProductListItemState extends State<ProductListItem> {
-  ProductModel product = ProductModel();
-  bool fetchingData = false;
-  var data;
-
-  void getData(String sku) async {
-    fetchingData = true;
-    try {
-      data = await product.getProductData(sku);
-      fetchingData = false;
-
-      setState(() {});
-    } catch (e) {
-      print(e);
-    }
-  }
+class _ProductCard extends StatelessWidget {
+  _ProductCard(this.data);
+  final dynamic data;
 
   String _getProductThumbnail(String sku) {
     String baseUrl =
@@ -122,12 +101,6 @@ class _ProductListItemState extends State<ProductListItem> {
     String firstFive = sku.substring(0, 5);
 
     return '$baseUrl/$firstThree/$firstFive/$sku.jpg';
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getData(widget.sku);
   }
 
   @override
@@ -152,24 +125,19 @@ class _ProductListItemState extends State<ProductListItem> {
               children: <Widget>[
                 AspectRatio(
                   aspectRatio: 1.0,
-                  child: fetchingData
-                      ? null
-                      : Image.network(
-                          _getProductThumbnail(widget.sku),
-                        ),
+                  child: Image.network(
+                    _getProductThumbnail(data['sku']),
+                  ),
                 ),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(10.0, 0.0, 2.0, 0.0),
                     child: _ProductDescription(
-                      name: fetchingData ? '???' : data['name'],
-                      sku: fetchingData ? '???' : data['sku'],
-                      isOnSale: fetchingData ? false : data['isProductOnSale'],
-                      salePrice:
-                          fetchingData ? '???' : data['salePrice'].toString(),
-                      regularPrice: fetchingData
-                          ? '???'
-                          : data['regularPrice'].toString(),
+                      name: data['name'],
+                      sku: data['sku'],
+                      isOnSale: data['isProductOnSale'],
+                      salePrice: data['salePrice'].toString(),
+                      regularPrice: data['regularPrice'].toString(),
                     ),
                   ),
                 )
@@ -178,6 +146,60 @@ class _ProductListItemState extends State<ProductListItem> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ProductListItem extends StatelessWidget {
+  ProductListItem(
+    this.sku,
+  );
+  final String sku;
+
+  final ProductModel product = ProductModel();
+
+  @override
+  Widget build(BuildContext context) {
+    final Future<dynamic> productData = product.getProductData(sku);
+
+    return FutureBuilder(
+      future: productData,
+      builder: (context, snapshot) {
+        // Check for errors
+        if (snapshot.hasError) {
+          return Card(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: SizedBox(
+                height: 90,
+                child: Expanded(
+                  child: Center(
+                    child: Text('Something went wrong'),
+                  ),
+                ),
+              ),
+            ),
+          );
+        }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          return _ProductCard(snapshot.data);
+        }
+
+        return Card(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: SizedBox(
+              height: 90,
+              child: Expanded(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
