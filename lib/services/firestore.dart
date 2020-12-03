@@ -11,7 +11,6 @@ class FirestoreService {
     Stream<QuerySnapshot> productsCollection =
         _db.collection('users').doc(uid).collection('products').snapshots();
 
-    print(productsCollection);
     return productsCollection;
   }
 }
