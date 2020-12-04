@@ -8,8 +8,12 @@ class FirestoreService {
   Stream<QuerySnapshot> getTrackedProducts(context) {
     User currentUser = Provider.of<User>(context);
     String uid = currentUser.uid;
-    Stream<QuerySnapshot> productsCollection =
-        _db.collection('users').doc(uid).collection('products').snapshots();
+    Stream<QuerySnapshot> productsCollection = _db
+        .collection('users')
+        .doc(uid)
+        .collection('products')
+        .orderBy('createdAt')
+        .snapshots();
 
     return productsCollection;
   }
