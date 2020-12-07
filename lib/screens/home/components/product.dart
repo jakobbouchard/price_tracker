@@ -125,7 +125,7 @@ class _ProductCard extends StatelessWidget {
       onDismissed: (direction) {
         _firestoreService.removeTrackedProduct(data['sku']);
 
-        Scaffold.of(context).showSnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text("Product ${data['sku']} deleted")));
       },
       child: Card(
