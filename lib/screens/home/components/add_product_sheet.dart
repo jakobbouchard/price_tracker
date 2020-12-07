@@ -60,6 +60,7 @@ class _AddProductSheetState extends State<AddProductSheet> {
             ),
             SizedBox(height: 15.0),
             ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(primary: Colors.teal),
               icon: Icon(Icons.add),
               label: Text('Track this product'),
               onPressed: () => _track(),
