@@ -19,4 +19,21 @@ class FirestoreService {
 
     return productsCollectionStream;
   }
+
+  /// Takes a Best Buy Canada SKU/Web Code as an input and adds the product to
+  /// the current user's tracked products in Firestore
+  void addTrackedProduct(String productSku) {
+    User currentUser = _auth.currentUser;
+    String uid = currentUser.uid;
+    CollectionReference trackedProducts =
+        _db.collection('users').doc(uid).collection('products');
+
+    trackedProducts
+        .doc(productSku)
+        .set({
+          'createdAt': FieldValue.serverTimestamp(),
+        })
+        .then((value) => print("Product tracked"))
+        .catchError((error) => print("Failed to add product: $error"));
+  }
 }

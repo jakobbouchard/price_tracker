@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:price_tracker/constants.dart';
 import 'package:price_tracker/services/product_fetch.dart';
+import 'package:price_tracker/services/firestore.dart';
 
 class AddProductSheet extends StatefulWidget {
   @override
@@ -8,14 +9,16 @@ class AddProductSheet extends StatefulWidget {
 }
 
 class _AddProductSheetState extends State<AddProductSheet> {
-  final _formKey = GlobalKey<FormState>();
+  final FirestoreService _firestoreService = FirestoreService();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final ProductModel productModel = ProductModel();
   String productSku;
   bool productIsValid;
 
   void _track() {
     if (_formKey.currentState.validate()) {
-      print('tracked {$productSku}');
+      _firestoreService.addTrackedProduct(productSku);
+      Navigator.pop(context);
     }
   }
 
