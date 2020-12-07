@@ -53,7 +53,7 @@ class _ProductDescription extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               Text(
-                isOnSale ? 'En vente' : 'Prix régulier',
+                isOnSale ? 'On sale' : 'Not on sale',
                 style: TextStyle(
                   fontSize: 12.0,
                   color: isOnSale ? Colors.red : Colors.white,
