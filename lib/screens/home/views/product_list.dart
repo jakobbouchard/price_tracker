@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:price_tracker/services/firestore.dart';
 import 'package:price_tracker/screens/home/components/product.dart';
+import 'package:price_tracker/screens/home/components/add_product_sheet.dart';
 
 class ProductList extends StatelessWidget {
   final FirestoreService _db = FirestoreService();
@@ -11,7 +12,10 @@ class ProductList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () => print('Pressed add'),
+        onPressed: () {
+          showModalBottomSheet(
+              context: context, builder: (context) => AddProductSheet());
+        },
         child: Icon(
           Icons.add,
         ),
