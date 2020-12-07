@@ -140,9 +140,10 @@ class AuthService {
 
   /// Notifies about changes to the user's sign-in state (such as sign-in or
   /// sign-out).
-  Stream<User> get user {
-    return _auth.authStateChanges();
-  }
+  Stream<User> get user => _auth.authStateChanges();
+
+  /// Returns true if the user is logged in, false if not.
+  bool get loggedIn => _auth.currentUser != null ? true : false;
 
   // Signing in //
 

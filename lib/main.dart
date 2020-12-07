@@ -35,8 +35,8 @@ class PriceTracker extends StatelessWidget {
 
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
-          analytics = FirebaseAnalytics();
-          fcm = FirebaseMessaging.instance;
+          AuthService _auth = AuthService();
+          FirebaseAnalytics analytics = FirebaseAnalytics();
 
           if (kDebugMode) {
             // Force disable Crashlytics collection while doing every day development.
@@ -50,23 +50,28 @@ class PriceTracker extends StatelessWidget {
 
           return StreamProvider<User>.value(
             catchError: (_, __) => null,
-            value: AuthService().user,
-            child: MaterialApp(
-              title: 'Price Tracker',
-              theme: ThemeData(
-                brightness: Brightness.dark,
-                primarySwatch: Colors.blue,
-                visualDensity: VisualDensity.adaptivePlatformDensity,
-              ),
-              navigatorObservers: [
-                FirebaseAnalyticsObserver(analytics: analytics),
-              ],
-              initialRoute: LoginScreen.id,
-              routes: {
-                LoginScreen.id: (context) => LoginScreen(),
-                HomeScreen.id: (context) => HomeScreen(title: 'Price Tracker'),
+            value: _auth.user,
+            child: Builder(
+              builder: (providerContext) {
+                return MaterialApp(
+                  title: 'Price Tracker',
+                  theme: ThemeData(
+                    brightness: Brightness.dark,
+                    primarySwatch: Colors.blue,
+                    visualDensity: VisualDensity.adaptivePlatformDensity,
+                  ),
+                  navigatorObservers: [
+                    FirebaseAnalyticsObserver(analytics: analytics),
+                  ],
+                  initialRoute: _auth.loggedIn ? HomeScreen.id : LoginScreen.id,
+                  routes: {
+                    LoginScreen.id: (context) => LoginScreen(),
+                    HomeScreen.id: (context) =>
+                        HomeScreen(title: 'Price Tracker'),
+                  },
+                  debugShowCheckedModeBanner: false,
+                );
               },
-              debugShowCheckedModeBanner: false,
             ),
           );
         }
