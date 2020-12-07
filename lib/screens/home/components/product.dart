@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:price_tracker/services/product_fetch.dart';
+import 'package:price_tracker/services/firestore.dart';
 
 class _ProductDescription extends StatelessWidget {
   _ProductDescription({
@@ -94,6 +95,8 @@ class _ProductCard extends StatelessWidget {
   _ProductCard(this.data);
   final dynamic data;
 
+  final FirestoreService _firestoreService = FirestoreService();
+
   String _getProductThumbnail(String sku) {
     String baseUrl =
         'https://multimedia.bbycastatic.ca/multimedia/products/100x100';
@@ -105,43 +108,64 @@ class _ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: InkWell(
-        splashColor: Colors.tealAccent.withAlpha(50),
-        onTap: () async {
-          String url = data['productUrl'];
-          if (await canLaunch(url)) {
-            await launch(url);
-          } else {
-            throw 'Could not launch $url';
-          }
-        },
+    return Dismissible(
+      direction: DismissDirection.endToStart,
+      background: Container(
+        alignment: AlignmentDirectional.centerEnd,
+        color: Colors.red,
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: SizedBox(
-            height: 90,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                AspectRatio(
-                  aspectRatio: 1.0,
-                  child: Image.network(
-                    _getProductThumbnail(data['sku']),
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(10.0, 0.0, 2.0, 0.0),
-                    child: _ProductDescription(
-                      name: data['name'],
-                      sku: data['sku'],
-                      isOnSale: data['isProductOnSale'],
-                      salePrice: data['salePrice'].toString(),
-                      regularPrice: data['regularPrice'].toString(),
+          padding: EdgeInsets.fromLTRB(0.0, 0.0, 10.0, 0.0),
+          child: Icon(
+            Icons.delete,
+            color: Colors.white,
+          ),
+        ),
+      ),
+      key: Key(data['sku']),
+      onDismissed: (direction) {
+        _firestoreService.removeTrackedProduct(data['sku']);
+
+        Scaffold.of(context).showSnackBar(
+            SnackBar(content: Text("Product ${data['sku']} deleted")));
+      },
+      child: Card(
+        child: InkWell(
+          splashColor: Colors.tealAccent.withAlpha(50),
+          onTap: () async {
+            String url = data['productUrl'];
+            if (await canLaunch(url)) {
+              await launch(url);
+            } else {
+              throw 'Could not launch $url';
+            }
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: SizedBox(
+              height: 90,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  AspectRatio(
+                    aspectRatio: 1.0,
+                    child: Image.network(
+                      _getProductThumbnail(data['sku']),
                     ),
                   ),
-                )
-              ],
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(10.0, 0.0, 2.0, 0.0),
+                      child: _ProductDescription(
+                        name: data['name'],
+                        sku: data['sku'],
+                        isOnSale: data['isProductOnSale'],
+                        salePrice: data['salePrice'].toString(),
+                        regularPrice: data['regularPrice'].toString(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

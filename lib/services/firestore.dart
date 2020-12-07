@@ -36,4 +36,19 @@ class FirestoreService {
         .then((value) => print("Product tracked"))
         .catchError((error) => print("Failed to add product: $error"));
   }
+
+  /// Takes a Best Buy Canada SKU/Web Code as an input and removes the product
+  /// from the current user's tracked products in Firestore
+  void removeTrackedProduct(String productSku) {
+    User currentUser = _auth.currentUser;
+    String uid = currentUser.uid;
+    CollectionReference trackedProducts =
+        _db.collection('users').doc(uid).collection('products');
+
+    trackedProducts
+        .doc(productSku)
+        .delete()
+        .then((value) => print("Product removed"))
+        .catchError((error) => print("Failed to remove product: $error"));
+  }
 }
