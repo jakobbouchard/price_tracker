@@ -7,7 +7,7 @@ import 'package:price_tracker/screens/home/components/add_product_sheet.dart';
 
 class ProductList extends StatelessWidget {
   final AuthService _auth = AuthService();
-  final FirestoreService _db = FirestoreService();
+  final FirestoreService _firestoreService = FirestoreService();
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class ProductList extends StatelessWidget {
       ),
       body: _auth.loggedIn
           ? StreamBuilder<QuerySnapshot>(
-              stream: _db.getTrackedProducts(context),
+              stream: _firestoreService.getTrackedProducts(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasError) {

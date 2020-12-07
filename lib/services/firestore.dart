@@ -6,16 +6,17 @@ class FirestoreService {
   final AuthService _auth = AuthService();
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  Stream<QuerySnapshot> getTrackedProducts(context) {
+  /// Returns the current user's tracked products from Firestore
+  Stream<QuerySnapshot> getTrackedProducts() {
     User currentUser = _auth.currentUser;
     String uid = currentUser.uid;
-    Stream<QuerySnapshot> productsCollection = _db
+    Stream<QuerySnapshot> productsCollectionStream = _db
         .collection('users')
         .doc(uid)
         .collection('products')
         .orderBy('createdAt')
         .snapshots();
 
-    return productsCollection;
+    return productsCollectionStream;
   }
 }
