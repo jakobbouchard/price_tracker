@@ -172,10 +172,8 @@ class ProductListItem extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: SizedBox(
                 height: 90,
-                child: Expanded(
-                  child: Center(
-                    child: Text('Something went wrong'),
-                  ),
+                child: Center(
+                  child: Text('Something went wrong'),
                 ),
               ),
             ),
@@ -191,10 +189,8 @@ class ProductListItem extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             child: SizedBox(
               height: 90,
-              child: Expanded(
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
+              child: Center(
+                child: CircularProgressIndicator(),
               ),
             ),
           ),
