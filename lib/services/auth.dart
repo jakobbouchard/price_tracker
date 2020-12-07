@@ -142,6 +142,9 @@ class AuthService {
   /// sign-out).
   Stream<User> get user => _auth.authStateChanges();
 
+  /// Returns the currentUser
+  User get currentUser => _auth.currentUser;
+
   /// Returns true if the user is logged in, false if not.
   bool get loggedIn => _auth.currentUser != null ? true : false;
 
